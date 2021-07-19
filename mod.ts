@@ -1,4 +1,5 @@
 import { Application, send } from "https://deno.land/x/oak@v7.7.0/mod.ts";
+import api from "./api.ts";
 
 const app = new Application();
 const port = 8000;
@@ -19,6 +20,10 @@ app.use(async (context, next) => {
   context.response.headers.set("X-Response-Time", `${delta}ms`);
 });
 
+// catch all the routes the we want to support first
+// anything that doesn't match that will be sent to this static file middleware
+app.use(api.routes());
+
 app.use(async (context) => {
   const filePath = context.request.url.pathname;
   const fileWhitelist = [
@@ -34,9 +39,9 @@ app.use(async (context) => {
 
 // endpoint
 // a middleware that doesn't call any downstream middleware
-app.use((context) => {
-  context.response.body = "Hello World";
-});
+// app.use((context) => {
+//   context.response.body = "Hello World";
+// });
 
 if (import.meta.main) {
   app.listen({ port });
