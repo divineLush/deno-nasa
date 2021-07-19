@@ -31,6 +31,7 @@ export default await (async () => {
         radius < 1.5 && mass > 0.78 && mass < 1.04 && stellarRadius > 0.99 &&
         stellarRadius < 1.01;
     })
+    // NOTE: keep in sync with loadPlanets in /javascripts/script.js
     .map((planet) => ({
       name: planet.kepler_name,
       numberOfPlanets: planet.koi_count,
