@@ -5,6 +5,20 @@ import api from "./api.ts";
 const app = new Application();
 const port = 8000;
 
+// handle errors
+app.addEventListener("error", (event) => {
+  log.error(event.error);
+});
+
+app.use(async (context, next) => {
+  try {
+    await next();
+  } catch (error) {
+    context.response.body = "Internal server error";
+    throw error;
+  }
+});
+
 // next is async function that allows to control when the next middleware gets called
 app.use(async (context, next) => {
   await next();
