@@ -23,6 +23,7 @@ app.use(async (context, next) => {
 // catch all the routes the we want to support first
 // anything that doesn't match that will be sent to this static file middleware
 app.use(api.routes());
+app.use(api.allowedMethods());
 
 app.use(async (context) => {
   const filePath = context.request.url.pathname;
