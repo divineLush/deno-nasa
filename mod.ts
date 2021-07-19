@@ -1,3 +1,4 @@
+import * as log from "https://deno.land/std/log/mod.ts";
 import { Application, send } from "https://deno.land/x/oak@v7.7.0/mod.ts";
 import api from "./api.ts";
 
@@ -10,7 +11,7 @@ app.use(async (context, next) => {
   // after next resolves we can access everything
   // that the downstream(next) middleware has done
   const time = context.response.headers.get("X-Response-Time");
-  console.log(`${context.request.method} ${context.request.url}: ${time}`);
+  log.info(`${context.request.method} ${context.request.url}: ${time}`);
 });
 
 app.use(async (context, next) => {
@@ -45,5 +46,6 @@ app.use(async (context) => {
 // });
 
 if (import.meta.main) {
+  log.info(`Starting server on port ${port}...`);
   app.listen({ port });
 }
