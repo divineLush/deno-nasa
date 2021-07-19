@@ -29,8 +29,8 @@ app.use(async (context) => {
   const filePath = context.request.url.pathname;
   const fileWhitelist = [
     "/index.html",
-    "/javascripts/script.js",
-    "/stylesheets/style.css",
+    "/script.js",
+    "/style.css",
     "/images/favicon.png",
   ];
   if (fileWhitelist.includes(filePath)) {
